@@ -1,0 +1,22 @@
+.container_contactos {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	width: 250px;
+	box-sizing: border-box;
+}
+.cabesera_contactos {
+	background: rgb(75, 75, 155);
+	width: 100%;
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+}
+.cabesera_contactos > p {
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 10px 10px;
+}
+.container_listaContactos {
+	max-height: 300px;
+	overflow-y: auto;
+}

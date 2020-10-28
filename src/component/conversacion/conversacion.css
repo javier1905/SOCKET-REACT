@@ -1,0 +1,35 @@
+.container_conversacion {
+	width: 250px;
+	border-radius: 5px;
+	border: solid 1px grey;
+	position: absolute;
+	background: rgb(255, 255, 255);
+	bottom: 0px;
+	right: 0px;
+	z-index: 200;
+	height: auto;
+}
+.container_conversacion h4 {
+	width: 100%;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 10px 0px;
+	background: rgb(79, 79, 139);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	font-family: Helvetica, sans-serif;
+}
+.cuerpo_conversacion {
+	width: 95%;
+	margin: 10px auto;
+	min-height: 100px;
+	max-height: 500px;
+	overflow-y: auto;
+	border-radius: 5px;
+	border: solid 1px grey;
+}
+.container_conversacion input[type='text'] {
+	padding: 10px 5px;
+	width: calc(100% - 20px);
+	margin: 10px auto;
+}

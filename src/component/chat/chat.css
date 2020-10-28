@@ -1,0 +1,16 @@
+.container_contactos {
+	border: solid 1px rgb(190, 190, 190);
+
+	border-radius: 5px;
+}
+.prueba {
+	width: 100%;
+	height: 3000px;
+	background: yellow;
+	z-index: 50;
+}
+.container_slider {
+	position: fixed;
+	right: 265px;
+	bottom: 15px;
+}
