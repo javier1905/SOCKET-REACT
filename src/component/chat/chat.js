@@ -8,7 +8,7 @@ const Chat = ({ desconectarChat, socket, nameUser }) => {
 	const [vecContactos, setvecContactos] = useState([])
 	const [vecConversaciones, setvecConversaciones] = useState([])
 	const [myIdConexion, setmyIdConexion] = useState('')
-	const [posicion, setposicion] = useState(0)
+	const [posicion, setposicion] = useState(250)
 
 	useEffect(() => {
 		socket.emit('sendUserConected', nameUser)
@@ -31,15 +31,17 @@ const Chat = ({ desconectarChat, socket, nameUser }) => {
 	const abrirConvesacion = contacto => {
 		vecConversaciones.find(c => c.idConexion === contacto.idConexion) === undefined &&
 			setvecConversaciones(vec => [...vec, contacto])
+		setposicion(260)
 	}
 
-	const mueveIZquierda = e => {
-		// const divContainerConversaciones = document.getElementById('container_conversaciones')
-		setposicion(p => p - 250)
-	}
+	const mueveIZquierda = e => posicion < 250 && setposicion(p => p + 250)
+
 	const mueveIDerecha = e => {
-		// const divContainerConversaciones = document.getElementById('container_conversaciones')
-		setposicion(p => p + 250)
+		console.log('====================================')
+		console.log(document.querySelector('#container_conversaciones').offsetLeft)
+		console.log('====================================')
+		document.querySelector('#container_conversaciones').offsetLeft + 250 < 250 &&
+			setposicion(p => p - 250)
 	}
 
 	return (

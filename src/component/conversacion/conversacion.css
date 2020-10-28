@@ -33,3 +33,29 @@
 	width: calc(100% - 20px);
 	margin: 10px auto;
 }
+.minimizar {
+	animation-name: minimizarEfec;
+	animation-duration: 3s;
+	animation-fill-mode: both;
+}
+@keyframes minimizarEfec {
+	0% {
+		transform: translateY(0px);
+	}
+	100% {
+		transform: translateY(190px);
+	}
+}
+.maximizar {
+	animation-name: maximizarEfec;
+	animation-duration: 3s;
+	animation-fill-mode: both;
+}
+@keyframes maximizarEfec {
+	0% {
+		transform: translateY(190px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}

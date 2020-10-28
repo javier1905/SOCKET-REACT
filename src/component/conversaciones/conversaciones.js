@@ -17,12 +17,19 @@ const Conversaciones = ({ vecConversaciones, posicion }) => {
 	// }
 	return (
 		<div
-			style={{ left: posicion }}
+			style={{ right: posicion, width: vecConversacioneS.length * 260 - 10 }}
 			id='container_conversaciones'
 			className='container_conversaciones'
 		>
 			{vecConversacioneS.map((con, i) => {
-				return <Conversacion position={i * 260 + 10} index={i} conversacion={con} key={i} />
+				return (
+					<Conversacion
+						position={i === 0 ? i * 260 + 10 : i * 260 + 10}
+						index={i}
+						conversacion={con}
+						key={i}
+					/>
+				)
 			})}
 		</div>
 	)

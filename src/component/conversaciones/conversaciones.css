@@ -1,6 +1,7 @@
 .container_conversaciones {
 	position: fixed;
 	bottom: 15px;
+	right: 250px;
 	width: calc(100% - 265px);
 	height: 10px;
 	transition: all 0.5s ease-in-out;
