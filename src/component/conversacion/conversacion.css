@@ -35,8 +35,30 @@
 }
 .minimizar {
 	animation-name: minimizarEfec;
-	animation-duration: 3s;
+	animation-duration: 0.5s;
 	animation-fill-mode: both;
+}
+.btn_minimizarr,
+.btn_maximizarr {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding: 7px;
+	border-radius: 50%;
+	border: none;
+	outline: none;
+	background-color: rgb(61, 60, 100);
+	color: white;
+}
+.btn_minimizarr:hover {
+	cursor: pointer;
+}
+.btn_maximizarr:hover {
+	cursor: pointer;
+}
+.esconderBtn {
+	opacity: 0;
+	display: none;
 }
 @keyframes minimizarEfec {
 	0% {
@@ -47,8 +69,9 @@
 	}
 }
 .maximizar {
+	transform: translateY(190px);
 	animation-name: maximizarEfec;
-	animation-duration: 3s;
+	animation-duration: 0.5s;
 	animation-fill-mode: both;
 }
 @keyframes maximizarEfec {

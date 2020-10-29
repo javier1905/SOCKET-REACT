@@ -1,7 +1,6 @@
 .container_contacto {
 }
 .container_contacto button {
-	background: rgb(201, 201, 201);
 	border: none;
 	outline: none;
 	padding: 10px 10px;
@@ -9,7 +8,11 @@
 	width: 90%;
 	text-align: left;
 	border-radius: 5px;
-	color: rgb(114, 112, 112);
+	background: rgb(255, 255, 255);
 	margin: 10px 10px;
 	box-sizing: border-box;
+}
+
+.container_contacto button:hover {
+	cursor: pointer;
 }

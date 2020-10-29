@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 import Contactos from '../contactos/contactos'
 import Conversaciones from '../conversaciones/conversaciones'
+// import findConeccionSocket from '../../redux/action/findConnectionSocket'
+// import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import './chat.css'
 
-const Chat = ({ desconectarChat, socket, nameUser }) => {
+const Chat = ({ desconectarChat, nameUser }) => {
 	const [vecContactos, setvecContactos] = useState([])
 	const [vecConversaciones, setvecConversaciones] = useState([])
 	const [myIdConexion, setmyIdConexion] = useState('')
 	const [posicion, setposicion] = useState(250)
+	const socket = useSelector(state => state.SocketConnection)
 
 	useEffect(() => {
 		socket.emit('sendUserConected', nameUser)
@@ -37,9 +41,6 @@ const Chat = ({ desconectarChat, socket, nameUser }) => {
 	const mueveIZquierda = e => posicion < 250 && setposicion(p => p + 250)
 
 	const mueveIDerecha = e => {
-		console.log('====================================')
-		console.log(document.querySelector('#container_conversaciones').offsetLeft)
-		console.log('====================================')
 		document.querySelector('#container_conversaciones').offsetLeft + 250 < 250 &&
 			setposicion(p => p - 250)
 	}
@@ -48,11 +49,9 @@ const Chat = ({ desconectarChat, socket, nameUser }) => {
 		<div className='App'>
 			<div>APP</div>
 			<Contactos
-				socket={socket}
 				vecContactos={vecContactos.filter(cc => cc.nombreUsuario !== nameUser)}
 				abrirConvesacion={abrirConvesacion}
 			/>
-
 			<Conversaciones posicion={posicion} vecConversaciones={vecConversaciones} socket={socket} />
 			<div className='container_slider'>
 				<button onClick={mueveIZquierda}>{'<'}</button>
@@ -71,3 +70,14 @@ const Chat = ({ desconectarChat, socket, nameUser }) => {
 }
 
 export default Chat
+
+//TODO: REDUX USANDO HOC => -----------------
+
+// export default connect(
+// 	store => {
+// 		socket: store
+// 	},
+// 	{
+// 		setConecctionSocket: findConeccionSocket,
+// 	}
+// )(Chat)
