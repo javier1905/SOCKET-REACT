@@ -9,12 +9,6 @@ const Conversaciones = ({ vecConversaciones, posicion }) => {
 		setvecConversacioneS(vecConversaciones)
 	}, [vecConversaciones])
 
-	// const posiciona = () => {
-	// 	const divsConversacion = document.querySelectorAll('container_conversacion')
-	// 	if(divsConversacion[0]))
-	// 	const AnchoConversacion = divsConversacion[0].clientWidth
-
-	// }
 	return (
 		<div
 			style={{ right: posicion, width: vecConversacioneS.length * 260 - 10 }}
@@ -24,10 +18,12 @@ const Conversaciones = ({ vecConversaciones, posicion }) => {
 			{vecConversacioneS.map((con, i) => {
 				return (
 					<Conversacion
-						position={i === 0 ? i * 260 + 10 : i * 260 + 10}
 						index={i}
-						conversacion={con}
 						key={i}
+						position={i === 0 ? i * 260 + 10 : i * 260 + 10}
+						idSocketEmisor={con.idSocketEmisor}
+						nombreEmisor={con.nombreEmisor}
+						mensajeRecibido={con.mensajeRecibido}
 					/>
 				)
 			})}

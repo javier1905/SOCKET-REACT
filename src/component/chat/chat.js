@@ -7,12 +7,13 @@ import { useSelector } from 'react-redux'
 
 import './chat.css'
 
-const Chat = ({ desconectarChat, nameUser }) => {
+const Chat = ({ desconectarChat }) => {
 	const [vecContactos, setvecContactos] = useState([])
 	const [vecConversaciones, setvecConversaciones] = useState([])
 	const [myIdConexion, setmyIdConexion] = useState('')
 	const [posicion, setposicion] = useState(250)
 	const socket = useSelector(state => state.SocketConnection)
+	const nameUser = useSelector(state => state.NombreUsuario)
 
 	useEffect(() => {
 		socket.emit('sendUserConected', nameUser)
@@ -20,21 +21,28 @@ const Chat = ({ desconectarChat, nameUser }) => {
 			setvecContactos(vecConect)
 		})
 
-		// socket.on('abrirConver', id => {
-		// 	try {
-		// 		if (id === socket.id) {
-		// 			setvecConversaciones(vec => [vec, { id: id }])
-		// 		}
-		// 	} catch (error) {}
-		// })
+		socket.on('resibirMsj:node-react', datos => {
+			if (vecConversaciones.find(c => c.idSocketEmisor === datos.idSocketEmisor) === undefined) {
+				setvecConversaciones(vec => [
+					...vec,
+					{
+						idSocketEmisor: datos.idSocketEmisor,
+						nombreEmisor: datos.nombreEmisor,
+						mensajeRecibido: datos.mensajeRecibido,
+					},
+				])
+			} else {
+				//TODO: reemplazar al exitenet para que cambien el mensaje
+			}
+		})
 	}, [])
 	useEffect(() => {
 		setmyIdConexion(socket.id)
 	}, [socket])
 
-	const abrirConvesacion = contacto => {
-		vecConversaciones.find(c => c.idConexion === contacto.idConexion) === undefined &&
-			setvecConversaciones(vec => [...vec, contacto])
+	const abrirConvesacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido }) => {
+		vecConversaciones.find(c => c.idSocketEmisor === idSocketEmisor) === undefined &&
+			setvecConversaciones(vec => [...vec, { idSocketEmisor, nombreEmisor, mensajeRecibido }])
 		setposicion(260)
 	}
 

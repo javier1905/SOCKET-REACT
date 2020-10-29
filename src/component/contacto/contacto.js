@@ -9,12 +9,11 @@ const Contacto = ({ socket, contacto, abrirConvesacion }) => {
 	}, [contacto])
 
 	const openChat = e => {
-		// socket.emit('abrirConversacion', {
-		// 	idConexion: contacto.id,
-		// 	nombreUsuario: contacto.nombreUsuario,
-		// })
-		abrirConvesacion(ContactO)
-		console.log('ando')
+		abrirConvesacion({
+			idSocketEmisor: ContactO.idConexion,
+			nombreEmisor: ContactO.nombreUsuario,
+			mensajeRecibido: '',
+		})
 	}
 
 	return (

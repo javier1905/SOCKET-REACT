@@ -3,6 +3,7 @@ import Chat from './component/chat/chat'
 import io from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
 import setConnectionSocket from './redux/action/findConnectionSocket'
+import setNombreUsuario from './redux/action/findNombreUsuario'
 import './App.css'
 
 const App = () => {
@@ -10,7 +11,10 @@ const App = () => {
 	const dispatch = useDispatch()
 	const socket = useSelector(store => store.SocketConnection)
 
-	const conectarChat = e => dispatch(setConnectionSocket(io(process.env.REACT_APP_URL_API)))
+	const conectarChat = e => {
+		dispatch(setConnectionSocket(io(process.env.REACT_APP_URL_API)))
+		dispatch(setNombreUsuario(nameUser))
+	}
 	const desconectarChat = () => setConnectionSocket(undefined)
 
 	return (
@@ -21,7 +25,7 @@ const App = () => {
 					<button onClick={conectarChat}>CONECTARME</button>
 				</div>
 			)}
-			{socket !== '' && <Chat desconectarChat={desconectarChat} nameUser={nameUser} />}
+			{socket !== '' && <Chat desconectarChat={desconectarChat} />}
 		</div>
 	)
 }
