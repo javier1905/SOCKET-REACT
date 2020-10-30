@@ -65,7 +65,7 @@ const Conversacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido, position 
 			</div>
 			<div className='cuerpo_conversacion'>
 				{vecChat.map((chat, i) => {
-					return <div key={i}>{`${chat.nombre}: ${chat.mensje}`}</div>
+					return <div key={i}>{`${chat.nombre}: ${chat.msj}`}</div>
 				})}
 			</div>
 			<input value={mensaje} onChange={escribiendo} type='text' placeholder='mensaje...' />

@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Conversacion from '../conversacion/conversacion'
+import { useSelector } from 'react-redux'
 import './conversaciones.css'
 
-const Conversaciones = ({ vecConversaciones, posicion }) => {
+const Conversaciones = ({ posicion }) => {
 	const [vecConversacioneS, setvecConversacioneS] = useState([])
 
+	var vecCon = useSelector(state => state.vecConversaciones)
+
 	useEffect(() => {
-		setvecConversacioneS(vecConversaciones)
-	}, [vecConversaciones])
+		setvecConversacioneS(vecCon)
+	}, [vecCon])
 
 	return (
 		<div

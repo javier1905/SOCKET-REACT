@@ -3,7 +3,8 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import SocketConnection from './reducers/socketConecction'
 import NombreUsuario from './reducers/nombreUsaurio'
-const misReducers = combineReducers({ SocketConnection, NombreUsuario })
+import vecConversaciones from './reducers/vecConversaciones'
+const misReducers = combineReducers({ SocketConnection, NombreUsuario, vecConversaciones })
 
 export default createStore(
 	misReducers,
