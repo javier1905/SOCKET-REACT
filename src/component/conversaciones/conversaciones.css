@@ -1,6 +1,6 @@
 .container_conversaciones {
 	position: fixed;
-	bottom: 15px;
+	bottom: 1px;
 	right: 250px;
 	width: calc(100% - 265px);
 	height: 10px;

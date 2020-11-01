@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Contactos from '../contactos/contactos'
 import Conversaciones from '../conversaciones/conversaciones'
 import addConversacion from '../../redux/action/findVecConversaciones'
+import updateConversacion from '../../redux/action/conversacionUpdate'
 // import findConeccionSocket from '../../redux/action/findConnectionSocket'
 // import { connect } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,10 +12,15 @@ import './chat.css'
 const Chat = ({ desconectarChat }) => {
 	const [vecContactos, setvecContactos] = useState([])
 	const [myIdConexion, setmyIdConexion] = useState('')
+	const [newConversacion, setnewConversacion] = useState({
+		idSocketEmisor: '',
+		nombreEmisor: '',
+		mensajeRecibido: '',
+	})
 	const [posicion, setposicion] = useState(250)
 	const socket = useSelector(state => state.SocketConnection)
 	const nameUser = useSelector(state => state.NombreUsuario)
-	const vecConversaciones = useSelector(state => state.vecConversaciones)
+	var vecConversaciones = useSelector(state => state.vecConversaciones)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -23,19 +29,23 @@ const Chat = ({ desconectarChat }) => {
 		socket.on('updateConect', vecConect => setvecContactos(vecConect))
 
 		socket.on('resibirMsj:node-react', datos => {
-			if (vecConversaciones.find(c => c.idSocketEmisor === datos.idSocketEmisor) === undefined) {
-				dispatch(
-					addConversacion({
-						idSocketEmisor: datos.idSocketEmisor,
-						nombreEmisor: datos.nombreEmisor,
-						mensajeRecibido: datos.mensajeRecibido,
-					})
-				)
-			} else {
-				//TODO: reemplazar al exitenet para que cambien el mensaje
-			}
+			setnewConversacion({
+				idSocketEmisor: datos.idSocketEmisor,
+				nombreEmisor: datos.nombreEmisor,
+				mensajeRecibido: datos.mensajeRecibido,
+			})
 		})
-	}, [vecConversaciones])
+	}, [])
+
+	useEffect(() => {
+		if (
+			vecConversaciones.find(c => c.idSocketEmisor === newConversacion.idSocketEmisor) === undefined
+		) {
+			newConversacion.idSocketEmisor !== '' && dispatch(addConversacion(newConversacion))
+		} else {
+			newConversacion.idSocketEmisor !== '' && dispatch(updateConversacion(newConversacion))
+		}
+	}, [newConversacion])
 	useEffect(() => setmyIdConexion(socket.id), [socket])
 
 	const abrirConvesacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido }) => {

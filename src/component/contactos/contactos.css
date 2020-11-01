@@ -1,14 +1,47 @@
 .container_contactos {
 	position: fixed;
-	right: 0px;
-	bottom: 15px;
+	right: 2px;
+	bottom: 2px;
 	width: 250px;
 	box-sizing: border-box;
 	z-index: 200;
 	background: rgb(255, 255, 255);
 	border: none;
 	border-radius: 5px;
-	box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.35);
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);
+}
+
+.showAnimacionToogle {
+	animation: showTo 0.1s;
+	animation-delay: 0.3s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-in-out;
+}
+.hideAnimacionToogle {
+	animation: hideTo 0.1s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0.3s;
+	animation-fill-mode: both;
+}
+@keyframes showTo {
+	0% {
+		height: 0px;
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+		height: auto;
+	}
+}
+@keyframes hideTo {
+	0% {
+		height: auto;
+		transform: scale(1);
+	}
+	100% {
+		height: 0px;
+		transform: scale(0);
+	}
 }
 .cabesera_contactos {
 	background: rgb(255, 255, 255);
@@ -17,13 +50,16 @@
 	border-radius: 5px;
 	padding: 10px 0px;
 	position: relative;
+	display: flex;
+	justify-content: space-between;
 }
 .cabesera_contactos::after {
 	content: '';
 	width: 100%;
 	height: 1px;
-	background: rgb(182, 180, 180);
+	background: #cfc9c9bb;
 	position: absolute;
+	bottom: 0px;
 }
 .cabesera_contactos > p {
 	font-size: 15px;
@@ -35,16 +71,92 @@
 .container_listaContactos {
 	max-height: 700px;
 	overflow-y: auto;
+	margin-top: 10px;
 }
 .container_imgContac {
 	display: inline-block;
 	width: 40px;
 	height: 40px;
 	margin-left: 10px;
+	position: relative;
 }
 .container_imgContac img {
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
+}
+.btn_down {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border: none;
+	padding: 0px;
+	transition: background 0.2s ease-in-out;
+	outline: none;
+	margin-right: 10px;
+}
+.btn_down svg {
+	width: 100%;
+	height: 100%;
+	color: #494949;
+}
+.btn_down:hover {
+	cursor: pointer;
+	background: #dce6f1;
+}
+
+.btn_up {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border: none;
+	padding: 0px;
+	transition: background 0.2s ease-in-out;
+	outline: none;
+}
+.btn_up svg {
+	width: 100%;
+	height: 100%;
+	color: #494949;
+}
+.btn_up:hover {
+	cursor: pointer;
+	background: #dce6f1;
+}
+
+.circulo_verde {
+	width: 17px;
+	height: 17px;
+	background: rgb(32, 133, 54);
+	border-radius: 50%;
+	border: solid 3px rgb(255, 255, 255);
+	position: absolute;
+	bottom: -4px;
+	right: -4px;
+}
+.container_buscadot_contactos {
+	position: relative;
+	padding: 10px 10px 0px 10px;
+}
+
+.txt_buscadorContactos {
+	position: relative;
+	padding: 10px 10px 10px 35px;
+	width: 100%;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+	background: #dce6f1;
+}
+
+.container_lupa svg {
+	position: absolute;
+	top: 10px;
+	bottom: 0px;
+	margin: auto;
+	left: 20px;
+	color: rgba(131, 128, 128, 0.815);
 }

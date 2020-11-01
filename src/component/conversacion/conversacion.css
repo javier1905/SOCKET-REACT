@@ -1,84 +1,130 @@
 .container_conversacion {
 	width: 250px;
 	border-radius: 5px;
-	border: solid 1px grey;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);
 	position: absolute;
 	background: rgb(255, 255, 255);
 	bottom: 0px;
 	right: 0px;
 	z-index: 200;
 	height: auto;
+	overflow: hidden;
 }
-.container_conversacion h4 {
+.container_nombreConversacion::after {
+	content: '';
 	width: 100%;
-	box-sizing: border-box;
-	text-align: center;
-	padding: 10px 0px;
-	background: rgb(79, 79, 139);
-	color: rgb(255, 255, 255);
-	font-size: 20px;
-	font-family: Helvetica, sans-serif;
+	background: #cfc9c9bb;
+	height: 1px;
+	position: absolute;
+	bottom: 0px;
+}
+.container_escribiendo p {
+	padding: 10px 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	user-select: none;
 }
 .cuerpo_conversacion {
-	width: 95%;
-	margin: 10px auto;
-	min-height: 100px;
-	max-height: 500px;
+	width: 100%;
+	min-height: 150px;
+	max-height: 600px;
 	overflow-y: auto;
 	border-radius: 5px;
-	border: solid 1px grey;
+	padding: 0px 10px;
 }
-.container_conversacion input[type='text'] {
+.container_conversacion textarea {
 	padding: 10px 5px;
 	width: calc(100% - 20px);
 	margin: 10px auto;
-}
-.minimizar {
-	animation-name: minimizarEfec;
-	animation-duration: 0.5s;
-	animation-fill-mode: both;
-}
-.btn_minimizarr,
-.btn_maximizarr {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	padding: 7px;
-	border-radius: 50%;
+	resize: none;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 100px;
 	border: none;
+	border-top: 2px solid #cfc9c9bb;
 	outline: none;
-	background-color: rgb(61, 60, 100);
-	color: white;
+	transition: border-top 0.5s ease-in-out;
 }
-.btn_minimizarr:hover {
-	cursor: pointer;
+.container_conversacion textarea:focus {
+	border-top: olivedrab solid 2px;
 }
-.btn_maximizarr:hover {
-	cursor: pointer;
-}
+
 .esconderBtn {
 	opacity: 0;
 	display: none;
 }
-@keyframes minimizarEfec {
-	0% {
-		transform: translateY(0px);
-	}
-	100% {
-		transform: translateY(190px);
-	}
+.container_nombreConversacion {
+	background: rgb(255, 255, 255);
+	width: 100%;
+	color: #191919;
+	border-radius: 5px;
+	padding: 10px 0px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.maximizar {
-	transform: translateY(190px);
-	animation-name: maximizarEfec;
-	animation-duration: 0.5s;
-	animation-fill-mode: both;
+.container_nombreConversacion p {
+	font-family: Arial, Helvetica, sans-serif;
+	display: block;
 }
-@keyframes maximizarEfec {
-	0% {
-		transform: translateY(190px);
-	}
-	100% {
-		transform: translateY(0px);
-	}
+.container_btn_enviar {
+	padding: 10px;
+	background: #ebebeb;
+}
+.container_btn_enviar button {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 5px 10px;
+	border: none;
+	background: rgba(231, 222, 222, 0.856);
+	color: grey;
+	border-radius: 15px;
+	outline: none;
+}
+.container_btn_enviar button:active {
+	background: rgb(67, 88, 204);
+	color: rgb(255, 255, 255);
+}
+.container_btn_enviar button:hover {
+	background: rgb(67, 88, 204);
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+.div_desconeccion {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(49, 49, 49, 0.493);
+	border-radius: 5px;
+	display: none;
+}
+.div_desconeccion button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 50px;
+	width: 50px;
+	background: transparent;
+	border: none;
+	color: white;
+	border-radius: 50%;
+	outline: none;
+	padding: 2px;
+}
+.div_desconeccion button svg {
+	width: 100% !important;
+	height: 100% !important;
+	color: rgba(92, 88, 88, 0.733);
+	transition: color 0.3s;
+}
+
+.div_desconeccion button:hover {
+	cursor: pointer;
+}
+.div_desconeccion button:hover svg {
+	color: rgb(83, 83, 83);
+}
+.div_desconeccion button:active svg {
+	color: black;
 }
