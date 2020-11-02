@@ -1,0 +1,58 @@
+.container_loading {
+	width: 100px;
+	height: 100px;
+	margin: 50px auto;
+	position: relative;
+}
+.loading_component_1 {
+	border: solid 2px transparent;
+	border-top-color: rgb(141, 140, 140);
+	border-left-color: rgb(146, 146, 146);
+	border-radius: 50%;
+	height: 50%;
+	width: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	animation: efectoRotate 1s linear infinite;
+}
+.loading_component_2 {
+	border: solid 2px transparent;
+	border-top-color: rgb(0, 0, 0);
+	border-left-color: rgb(0, 0, 0);
+	border-radius: 50%;
+	height: 75%;
+	width: 75%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	animation: efectoRotateInverso 1s linear infinite;
+}
+.loading_component_3 {
+	border: solid 2px transparent;
+	border-top-color: rgb(0, 0, 0);
+	border-left-color: rgb(0, 0, 0);
+	border-radius: 50%;
+	height: 25%;
+	width: 25%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	animation: efectoRotateInverso 1s linear infinite;
+}
+@keyframes efectoRotate {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+@keyframes efectoRotateInverso {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(-360deg);
+	}
+}

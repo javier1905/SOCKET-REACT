@@ -15,7 +15,9 @@ const App = () => {
 		dispatch(setConnectionSocket(io(process.env.REACT_APP_URL_API)))
 		dispatch(setNombreUsuario(nameUser))
 	}
-	const desconectarChat = () => setConnectionSocket(undefined)
+	const desconectarChat = () => {
+		dispatch(setConnectionSocket(''))
+	}
 
 	return (
 		<div className='App'>

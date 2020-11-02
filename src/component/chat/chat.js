@@ -5,6 +5,8 @@ import addConversacion from '../../redux/action/findVecConversaciones'
 import updateConversacion from '../../redux/action/conversacionUpdate'
 // import findConeccionSocket from '../../redux/action/findConnectionSocket'
 // import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './chat.css'
@@ -34,6 +36,12 @@ const Chat = ({ desconectarChat }) => {
 				nombreEmisor: datos.nombreEmisor,
 				mensajeRecibido: datos.mensajeRecibido,
 			})
+		})
+
+		socket.on('connect_error', error => {
+			console.log('====================================')
+			console.log(error)
+			console.log('====================================')
 		})
 	}, [])
 
@@ -78,8 +86,12 @@ const Chat = ({ desconectarChat }) => {
 			/>
 			<Conversaciones posicion={posicion} />
 			<div className='container_slider'>
-				<button onClick={mueveIZquierda}>{'<'}</button>
-				<button onClick={mueveIDerecha}>{'>'} </button>
+				<button onClick={mueveIZquierda}>
+					<FontAwesomeIcon icon={faAngleLeft} />
+				</button>
+				<button onClick={mueveIDerecha}>
+					<FontAwesomeIcon icon={faAngleRight} />
+				</button>
 			</div>
 			<button
 				onClick={e => {

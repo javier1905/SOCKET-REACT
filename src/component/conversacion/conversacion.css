@@ -18,6 +18,70 @@
 	position: absolute;
 	bottom: 0px;
 }
+.circulo_verdeW {
+	width: 17px;
+	height: 17px;
+	background: rgb(32, 133, 54);
+	border-radius: 50%;
+	border: solid 3px rgb(255, 255, 255);
+	position: absolute;
+	bottom: -4px;
+	right: -4px;
+}
+.btn_downW {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border: none;
+	padding: 0px;
+	transition: background 0.2s ease-in-out;
+	outline: none;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.btn_downW svg {
+	width: 100%;
+	height: 100%;
+	color: #494949;
+}
+.btn_downW:hover {
+	cursor: pointer;
+	background: #dce6f1;
+}
+.showAnimacionToogleW {
+	animation: showTo 0.1s;
+	animation-delay: 0.3s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-in-out;
+}
+.hideAnimacionToogleW {
+	animation: hideTo 0.1s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0.3s;
+	animation-fill-mode: both;
+}
+@keyframes showTo {
+	0% {
+		height: 0px;
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+		height: auto;
+	}
+}
+@keyframes hideTo {
+	0% {
+		height: auto;
+		transform: scale(1);
+	}
+	100% {
+		height: 0px;
+		transform: scale(0);
+	}
+}
+
 .container_escribiendo p {
 	padding: 10px 10px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -34,7 +98,7 @@
 .container_conversacion textarea {
 	padding: 10px 5px;
 	width: calc(100% - 20px);
-	margin: 10px auto;
+	/* margin: 10px auto; */
 	resize: none;
 	width: 100%;
 	font-family: Arial, Helvetica, sans-serif;
@@ -89,6 +153,9 @@
 	color: rgb(255, 255, 255);
 	cursor: pointer;
 }
+.divBloqueadoPorDesconexion {
+	position: relative;
+}
 .div_desconeccion {
 	position: absolute;
 	top: 0px;
@@ -96,35 +163,6 @@
 	width: 100%;
 	height: 100%;
 	background: rgba(49, 49, 49, 0.493);
-	border-radius: 5px;
+	border-radius: 0px 0px 5px 5px;
 	display: none;
-}
-.div_desconeccion button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	height: 50px;
-	width: 50px;
-	background: transparent;
-	border: none;
-	color: white;
-	border-radius: 50%;
-	outline: none;
-	padding: 2px;
-}
-.div_desconeccion button svg {
-	width: 100% !important;
-	height: 100% !important;
-	color: rgba(92, 88, 88, 0.733);
-	transition: color 0.3s;
-}
-
-.div_desconeccion button:hover {
-	cursor: pointer;
-}
-.div_desconeccion button:hover svg {
-	color: rgb(83, 83, 83);
-}
-.div_desconeccion button:active svg {
-	color: black;
 }

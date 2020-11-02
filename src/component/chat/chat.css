@@ -1,11 +1,25 @@
-.prueba {
-	width: 100%;
-	height: 3000px;
-	background: yellow;
-	z-index: 50;
-}
 .container_slider {
 	position: fixed;
 	right: 265px;
-	bottom: 15px;
+	bottom: 1px;
+}
+.container_slider button {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	outline: none;
+	border: none;
+	margin: 0px 3px 0px 0px;
+	color: rgb(83, 83, 83);
+	transition: background 0.3s;
+}
+container_slider button svg {
+	width: 100% !important;
+	height: 100% !important;
+	border-radius: 50%;
+	color: rgba(206, 206, 206, 0.829);
+}
+.container_slider button:hover {
+	cursor: pointer;
+	background: #dce6f1;
 }
