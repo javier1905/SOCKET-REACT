@@ -10,25 +10,6 @@
 	font-family: 'Open Sans';
 }
 
-h1 {
-	font-size: 5rem;
-}
-h2 {
-	font-size: 4.5rem;
-}
-h3 {
-	font-size: 4rem;
-}
-h4 {
-	font-size: 3.5rem;
-}
-h5 {
-	font-size: 3rem;
-}
-p {
-	font-size: 1rem;
-}
-button {
-	font-size: 1rem;
-	border-radius: 8px;
+body {
+	font-size: 16px;
 }
