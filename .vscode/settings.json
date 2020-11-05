@@ -24,5 +24,34 @@
         "editor.wordHighlightBackground": "#0e6306"
     },
     "peacock.color": "#1857a4",
-    "npm-scripts.showStartNotification": false
+    "npm-scripts.showStartNotification": false,
+    "editor.tokenColorCustomizations": {
+
+        "textMateRules": [
+            {
+                "scope": "entity.name.tag support.class.component",
+                "settings": {
+                    "foreground": "#43c7a6"
+                },
+                
+      
+
+            },{
+                "scope": "string.unquoted",
+                "settings": {
+                    "foreground": "#FFCB6B"
+                },
+            },
+            {
+                "scope": "variable.name",
+                "settings": {
+                    "foreground": "#487df0"
+                },
+            }
+         
+        ]
+    
+        },
+
+
 }

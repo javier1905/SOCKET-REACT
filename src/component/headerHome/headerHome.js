@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-import './headerHome.css'
+import './headerHome.scss'
 
 const HeaderHome = () => {
 	const history = useHistory()
@@ -29,7 +29,7 @@ const HeaderHome = () => {
 	return (
 		<div className='container_headerHome'>
 			<div className='container_tiruloHeader'>
-				<h5>HeaderHome</h5>
+				<h2>HeaderHome</h2>
 			</div>
 			<div className='container_btn_sing_mobile'>
 				<button onClick={despliegaMenu} id='btn_despliegaMenu'>
