@@ -18,12 +18,10 @@
         "editor.selectionHighlightBackground": "#8f0000",
         "editorOverviewRuler.selectionHighlightForeground": "#0a5800",
         "editorCursor.foreground": "#ffffff",
-        "editorGroup.border": "#ff0000",
-        "editor.findMatchBackground": "#00cc44a8", //Current SEARCH MATCH
+        "editor.findMatchBackground": "#00cc44a8",
         "editor.findMatchHighlightBackground": "#ff7b00a1",
         "numbersBookmarks.lineBackground": "#007700",
-        "editor.wordHighlightBackground": "#0e6306", //Other SEARCH MATCHES
-    
+        "editor.wordHighlightBackground": "#0e6306"
     },
     "peacock.color": "#1857a4",
     "npm-scripts.showStartNotification": false
