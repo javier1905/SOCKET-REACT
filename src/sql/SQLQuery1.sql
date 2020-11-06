@@ -1,6 +1,6 @@
-create database websocket
+create database websocketDB
 go
-use websocket
+use websocketDB
 go
 create table perfiles(
 	id int identity (1,1) not null,
@@ -14,7 +14,7 @@ go
 create table usuarios(
 	id int identity (1,1) not null,
 	email varchar(50) not null unique,
-	pw varchar(50) not null,
+	pw varchar(600) not null,
 	nombre varchar(50) not null ,
 	apellido varchar(50) not null,
 	idPerfil int not null
@@ -43,3 +43,48 @@ insert into estados (nombre) values
 ('APROBADO'),
 ('DENEGADO'),
 ('PENDIENTE')
+go
+create procedure pa_login
+	@emailUsuario varchar(50)
+	as
+		begin
+			select u.email as emailUsuario , u.pw as pwUsuario , u.nombre as nombreUsuario , u.apellido as apellidoUsuario , u.idPerfil as idPerfil
+			from usuarios u
+			where u.email = @emailUsuario
+		end
+go
+create procedure pa_singup
+	@emailUsuario varchar(50) ,
+	@pwUsuario varchar(600) ,
+	@nombreUsuario varchar(50),
+	@apellidoUsuario varchar(50)
+	as
+		begin		
+			declare @idPerfil int
+			begin transaction 
+			begin try			
+				insert into perfiles (idFotoCloud,urlFotoCloud,idFondoCloud,urlFondoCloud) 
+				values
+				('editar' , 'editar' , 'editar' , 'editar') 				
+				set @idPerfil  = @@IDENTITY
+				insert into usuarios (email , pw , nombre , apellido , idPerfil) values 
+				(@emailUsuario , @pwUsuario , @nombreUsuario , @apellidoUsuario , @idPerfil)
+				commit 
+				select 'USUARIO GUARDADO EXITOSAMENTE'  as OK
+			end try
+			begin catch
+				rollback 
+				select 'ERROR TRANSACTION' + ERROR_MESSAGE()  as noOK
+			end catch				
+		end
+
+		select * from perfiles
+		select * from usuarios
+
+		exec pa_singup 
+		'javier_85@hotmail.com' , 
+		'belgrano455' ,
+		'javier' ,
+		'Sosa'
+
+ 
