@@ -7,6 +7,7 @@ import App from './App'
 import store from './redux/store'
 import Home from './component/home/home'
 import Login from './component/login/login'
+import SingUp from './component/singUp/singUp'
 
 import './index.css'
 
@@ -21,8 +22,11 @@ ReactDOM.render(
 					<Route path='/app'>
 						<App />
 					</Route>
-					<Route>
-						<Login exact path='/login' />
+					<Route path='/login'>
+						<Login />
+					</Route>
+					<Route path='/singup'>
+						<SingUp />
 					</Route>
 				</Switch>
 			</Router>

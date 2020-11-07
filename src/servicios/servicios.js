@@ -64,3 +64,36 @@ export const getUserLogin = (abortController, callback) => {
 	}
 	myFetch()
 }
+
+export const singup = (
+	emailUsuario,
+	pwUsuario,
+	nombreUsuario,
+	apellidoUsuario,
+	callback,
+	abortController
+) => {
+	var cont = 0
+
+	const myFetch = async () => {
+		fetch(`${process.env.REACT_APP_URL_API}/api/usuario/singup`, {
+			method: 'POST',
+			body: JSON.stringify({ emailUsuario, pwUsuario, nombreUsuario, apellidoUsuario }),
+			headers: new Headers({
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			}),
+			signal: abortController.signal,
+		})
+			.then(d => d.json())
+			.then(j => callback(j))
+			.catch(e => {
+				if (e === 'AbortError') abortController.abort()
+				else {
+					cont++
+					cont < 2 ? myFetch() : callback({ opOK: false, mensaje: e.message })
+				}
+			})
+	}
+	myFetch()
+}
