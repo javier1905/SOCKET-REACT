@@ -4,7 +4,7 @@ export const login = (emailUsuario, pwUsuario, abortController, callback) => {
 	var cont = 0
 	var contDOS = 0
 	const myFetch = () => {
-		fetch(`${process.env.REACT_APP_URL_API}/login`, {
+		fetch(`${process.env.REACT_APP_URL_API}/api/login`, {
 			method: 'POST',
 			body: JSON.stringify({ emailUsuario, pwUsuario }),
 			headers: new Headers({
@@ -15,8 +15,8 @@ export const login = (emailUsuario, pwUsuario, abortController, callback) => {
 		})
 			.then(d => d.json())
 			.then(j => {
-				if (j.opOK === true) callback(j)
-				else if (j.opOK === false) {
+				if (j.logOK === true) callback(j)
+				else if (j.logOK === false) {
 					contDOS++
 					contDOS < 2 ? myFetch() : callback(j)
 				}
@@ -25,7 +25,7 @@ export const login = (emailUsuario, pwUsuario, abortController, callback) => {
 				if (e.name === 'AbortError') abortController.abort()
 				else {
 					cont++
-					cont < 4 ? myFetch() : callback({ opOK: false, mensaje: e.message })
+					cont < 2 ? myFetch() : callback({ logOK: false, mensaje: e.message })
 				}
 			})
 	}
@@ -37,7 +37,7 @@ export const getUserLogin = (abortController, callback) => {
 	var contDOS = 0
 	const token = new Cookie().get('token')
 	const myFetch = () => {
-		fetch(`${process.env.REACT_APP_URL_API}/getuserlogin`, {
+		fetch(`${process.env.REACT_APP_URL_API}/api/getuserlogin`, {
 			method: 'GET',
 			headers: new Headers({
 				Accept: 'application/json',
@@ -58,7 +58,7 @@ export const getUserLogin = (abortController, callback) => {
 				if (e.name === 'AbortError') abortController.abort()
 				else {
 					cont++
-					cont < 4 ? myFetch() : callback({ logOK: false, mensaje: e.message })
+					cont < 2 ? myFetch() : callback({ logOK: false, mensaje: e.message })
 				}
 			})
 	}

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { singup } from '../../servicios/servicios'
 import { muestraAlert } from '../../input/alert/alert'
 import Menu from '../headerHome/headerHome'
+import Loading from '../../input/loading/loading'
+import { Redirect } from 'react-router-dom'
 
 import './singUp.scss'
 
@@ -11,6 +13,9 @@ const SingUp = () => {
 	const [pwUsuario, setpwUsuario] = useState('')
 	const [nombreUsuario, setnombreUsuario] = useState('')
 	const [apellidoUsuario, setapellidoUsuario] = useState('')
+	const [pwUsuarioConfirmacion, setpwUsuarioConfirmacion] = useState('')
+	const [redirec, setredirec] = useState(false)
+	const [loaging, setloaging] = useState(false)
 
 	const abortController = new AbortController()
 
@@ -19,18 +24,31 @@ const SingUp = () => {
 		const value = e.target.value
 		if (name === 'emailUsuario') setemailUsuario(value)
 		else if (name === 'pwUsuario') setpwUsuario(value)
+		else if (name === 'pwUsuarioConfirmacion') setpwUsuarioConfirmacion(value)
 		else if (name === 'nombreUsuario') setnombreUsuario(value)
 		else setapellidoUsuario(value)
 	}
 
 	const callback = result => {
-		if (result.opOK === true) muestraAlert('exito', result.mensaje)
-		else muestraAlert('error', result.mensaje)
+		if (result.opOK === true) {
+			muestraAlert('exito', result.mensaje)
+			setemailUsuario('')
+			setpwUsuario('')
+			setnombreUsuario('')
+			setapellidoUsuario('')
+			setTimeout(() => setredirec(true), 2000)
+		} else muestraAlert('error', result.mensaje)
+		setloaging(false)
 	}
 
 	const mySubmit = e => {
 		e.preventDefault()
-		singup(emailUsuario, pwUsuario, nombreUsuario, apellidoUsuario, callback, abortController)
+		if (pwUsuario === pwUsuarioConfirmacion) {
+			setloaging(true)
+			singup(emailUsuario, pwUsuario, nombreUsuario, apellidoUsuario, callback, abortController)
+		} else {
+			muestraAlert('error', 'Contraseñas diferentes')
+		}
 	}
 
 	return (
@@ -38,25 +56,57 @@ const SingUp = () => {
 			<Menu />
 			<div className='container_singup'>
 				<form onSubmit={mySubmit}>
-					<label>
-						Email
-						<input name='emailUsuario' type='email' value={emailUsuario} onChange={myChange} />
-					</label>
-					<label>
-						Password
-						<input name='pwUsuario' type='password' value={pwUsuario} onChange={myChange} />
-					</label>
-					<label>
-						Nombre
-						<input name='nombreUsuario' type='text' value={nombreUsuario} onChange={myChange} />
-					</label>
-					<label>
-						Apellido
-						<input name='apellidoUsuario' type='text' value={apellidoUsuario} onChange={myChange} />
-					</label>
+					<h3>Sing Up</h3>
+					<label htmlFor='txt_emailUsuario'>Email</label>
+					<input
+						id='txt_emailUsuario'
+						name='emailUsuario'
+						type='email'
+						required
+						value={emailUsuario}
+						onChange={myChange}
+					/>
+					<label htmlFor='txt_pwUsuario'>Password</label>
+					<input
+						id='txt_pwUsuario'
+						name='pwUsuario'
+						type='password'
+						required
+						value={pwUsuario}
+						onChange={myChange}
+					/>
+					<label htmlFor='txt_pwUsuarioConfirmacion'>Password</label>
+					<input
+						id='txt_pwUsuarioConfirmacion'
+						name='pwUsuarioConfirmacion'
+						type='password'
+						required
+						value={pwUsuarioConfirmacion}
+						onChange={myChange}
+					/>
+					<label htmlFor='txt_nombreUsuario'>Nombre</label>
+					<input
+						id='txt_nombreUsuario'
+						name='nombreUsuario'
+						type='text'
+						required
+						value={nombreUsuario}
+						onChange={myChange}
+					/>
+					<label htmlFor='txt_apellidoUsuario'>Apellido</label>
+					<input
+						id='txt_apellidoUsuario'
+						name='apellidoUsuario'
+						type='text'
+						required
+						value={apellidoUsuario}
+						onChange={myChange}
+					/>
 					<button type='submit'>Registraste</button>
 				</form>
 			</div>
+			{loaging && <Loading />}
+			{redirec && <Redirect to='/login' />}
 		</>
 	)
 }

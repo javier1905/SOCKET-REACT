@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react'
 import './contacto.css'
 
-const Contacto = ({ socket, contacto, abrirConvesacion }) => {
+const Contacto = ({ contacto, abrirConvesacion }) => {
 	const [ContactO, setContactO] = useState({ idConexion: '', nombreUsuario: '' })
 
-	useEffect(() => {
-		setContactO(contacto)
-	}, [contacto])
+	useEffect(() => setContactO(contacto), [contacto])
 
 	const openChat = e => {
 		abrirConvesacion({
 			idSocketEmisor: ContactO.idConexion,
-			nombreEmisor: ContactO.nombreUsuario,
+			nombreEmisor: ContactO.usuario,
 			mensajeRecibido: '',
 		})
 	}
@@ -25,7 +23,7 @@ const Contacto = ({ socket, contacto, abrirConvesacion }) => {
 						alt='messi'
 					></img>
 				</div>
-				<p>{ContactO.nombreUsuario}</p>
+				<p>{ContactO.usuario.emialUsuario}</p>
 			</button>
 		</div>
 	)

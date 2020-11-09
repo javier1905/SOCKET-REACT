@@ -1,10 +1,10 @@
-import { type as GETCONNECTIONSOCKET } from '../action/findConnectionSocket'
+import { type as SET_SOCKET } from '../action/setSocket'
 
 const defaulrState = ''
 
 const SocketConnection = (state = defaulrState, { type, payload }) => {
 	switch (type) {
-		case GETCONNECTIONSOCKET:
+		case SET_SOCKET:
 			return payload
 		default:
 			return state

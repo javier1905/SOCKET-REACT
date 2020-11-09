@@ -1,33 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Chat from './component/chat/chat'
 import io from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
-import setConnectionSocket from './redux/action/findConnectionSocket'
-import setNombreUsuario from './redux/action/findNombreUsuario'
+import { Redirect } from 'react-router-dom'
+
+import setSocket from './redux/action/setSocket'
+import setUsuario from './redux/action/setUsuario'
+
+import { getUserLogin } from './servicios/servicios'
+// import usuario from './redux/reducers/usuario'
+
 import './App.css'
 
 const App = () => {
-	const [nameUser, setnameUser] = useState('')
-	const dispatch = useDispatch()
-	const socket = useSelector(store => store.SocketConnection)
+	const [logOK, setlogOK] = useState(true)
 
-	const conectarChat = e => {
-		dispatch(setConnectionSocket(io(process.env.REACT_APP_URL_API)))
-		dispatch(setNombreUsuario(nameUser))
+	const dispatch = useDispatch()
+	const socket = useSelector(store => store.socket)
+	const usuario = useSelector(store => store.usuario)
+
+	const abortController = new AbortController()
+
+	const callback = result => {
+		if (result.logOK === true) {
+			console.log('====================================')
+			console.log(result.usuario)
+			console.log('====================================')
+			dispatch(setSocket(io(process.env.REACT_APP_URL_API)))
+			dispatch(setUsuario(result.usuario))
+			setlogOK(true)
+		} else setlogOK(false)
 	}
-	const desconectarChat = () => {
-		dispatch(setConnectionSocket(''))
-	}
+
+	useEffect(() => getUserLogin(abortController, callback), [])
+
+	const desconectarChat = () => dispatch(setSocket(''))
 
 	return (
 		<div className='App'>
-			{socket === '' && (
-				<div>
-					<input type='text' value={nameUser} onChange={e => setnameUser(e.target.value)} />
-					<button onClick={conectarChat}>CONECTARME</button>
-				</div>
-			)}
+			<div>
+				<ul>
+					<li>{usuario.emailUsuario}</li>
+					<li>{usuario.nombreUsuario}</li>
+					<li>{usuario.apellidoUsuario}</li>
+				</ul>
+			</div>
 			{socket !== '' && <Chat desconectarChat={desconectarChat} />}
+			{logOK === false && <Redirect to='/singin' />}
 		</div>
 	)
 }

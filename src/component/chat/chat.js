@@ -13,20 +13,20 @@ import './chat.css'
 
 const Chat = ({ desconectarChat }) => {
 	const [vecContactos, setvecContactos] = useState([])
-	const [myIdConexion, setmyIdConexion] = useState('')
 	const [newConversacion, setnewConversacion] = useState({
 		idSocketEmisor: '',
 		nombreEmisor: '',
 		mensajeRecibido: '',
 	})
 	const [posicion, setposicion] = useState(250)
-	const socket = useSelector(state => state.SocketConnection)
-	const nameUser = useSelector(state => state.NombreUsuario)
+
+	const socket = useSelector(state => state.socket)
+	const usuario = useSelector(state => state.usuario)
 	var vecConversaciones = useSelector(state => state.vecConversaciones)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		socket.emit('sendUserConected', nameUser)
+		socket.emit('sendUserConected', usuario)
 
 		socket.on('updateConect', vecConect => setvecContactos(vecConect))
 
@@ -54,7 +54,6 @@ const Chat = ({ desconectarChat }) => {
 			newConversacion.idSocketEmisor !== '' && dispatch(updateConversacion(newConversacion))
 		}
 	}, [newConversacion])
-	useEffect(() => setmyIdConexion(socket.id), [socket])
 
 	const abrirConvesacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido }) => {
 		setposicion(260)
@@ -78,10 +77,10 @@ const Chat = ({ desconectarChat }) => {
 	return (
 		<div className='App'>
 			<div>
-				<h1>{nameUser}</h1>
+				<h1>{usuario.email}</h1>
 			</div>
 			<Contactos
-				vecContactos={vecContactos.filter(cc => cc.nombreUsuario !== nameUser)}
+				vecContactos={vecContactos.filter(cc => cc.usuario.emailUsuario !== usuario.emailUsuario)}
 				abrirConvesacion={abrirConvesacion}
 			/>
 			<Conversaciones posicion={posicion} />

@@ -1,10 +1,10 @@
 import { combineReducers, applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import SocketConnection from './reducers/socketConecction'
-import NombreUsuario from './reducers/nombreUsaurio'
+import socket from './reducers/socket'
+import usuario from './reducers/usuario'
 import vecConversaciones from './reducers/vecConversaciones'
-const misReducers = combineReducers({ SocketConnection, NombreUsuario, vecConversaciones })
+const misReducers = combineReducers({ socket, usuario, vecConversaciones })
 
 export default createStore(
 	misReducers,

@@ -4,17 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faSearch } from '@fortawesome/free-solid-svg-icons'
 import './contactos.css'
 
-const Contactos = ({ vecContactos, socket, abrirConvesacion }) => {
+const Contactos = ({ vecContactos, abrirConvesacion }) => {
 	const [vecContactoS, setvecContactoS] = useState([])
 	const [buscarContacto, setbuscarContacto] = useState('')
-	const container_contac = useRef()
-	useEffect(() => {
-		setvecContactoS(vecContactos)
-	}, [vecContactos])
 
-	const buscarcontactos = e => {
-		setbuscarContacto(e.target.value)
-	}
+	const container_contac = useRef()
+
+	useEffect(() => setvecContactoS(vecContactos), [vecContactos])
+
+	const buscarcontactos = e => setbuscarContacto(e.target.value)
 
 	const toogle = e => {
 		container_contac.current.classList.remove('showAnimacionToogle')
@@ -66,16 +64,9 @@ const Contactos = ({ vecContactos, socket, abrirConvesacion }) => {
 				<div className='container_listaContactos'>
 					{Array.isArray(vecContactos) &&
 						vecContactoS
-							.filter(con => new RegExp(buscarContacto, 'g', 'i').test(con.nombreUsuario))
+							.filter(con => new RegExp(buscarContacto, 'g', 'i').test(con.usuario.emailUsuario))
 							.map((c, i) => {
-								return (
-									<Contacto
-										socket={socket}
-										abrirConvesacion={abrirConvesacion}
-										contacto={c}
-										key={i}
-									/>
-								)
+								return <Contacto abrirConvesacion={abrirConvesacion} contacto={c} key={i} />
 							})}
 				</div>
 			</div>
