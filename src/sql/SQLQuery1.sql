@@ -81,6 +81,9 @@ create procedure pa_singup
 		select * from perfiles
 		select * from usuarios
 
+		delete usuarios
+		delete perfiles
+
 		exec pa_singup 
 		'javier_85@hotmail.com' , 
 		'belgrano455' ,

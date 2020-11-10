@@ -28,7 +28,10 @@ const Chat = ({ desconectarChat }) => {
 	useEffect(() => {
 		socket.emit('sendUserConected', usuario)
 
-		socket.on('updateConect', vecConect => setvecContactos(vecConect))
+		socket.on('updateConect', vecConect => {
+			console.log(vecConect, '===', usuario)
+			setvecContactos(vecConect)
+		})
 
 		socket.on('resibirMsj:node-react', datos => {
 			setnewConversacion({
@@ -55,13 +58,13 @@ const Chat = ({ desconectarChat }) => {
 		}
 	}, [newConversacion])
 
-	const abrirConvesacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido }) => {
+	const abrirConvesacion = ({ idSocketEmisor, usuario, mensajeRecibido }) => {
 		setposicion(260)
-		vecConversaciones.find(c => c.idSocketEmisor === idSocketEmisor) === undefined &&
+		vecConversaciones.find(c => c.usuario.emailUsuario === usuario.emailUsuario) === undefined &&
 			dispatch(
 				addConversacion({
 					idSocketEmisor: idSocketEmisor,
-					nombreEmisor: nombreEmisor,
+					usuario: usuario,
 					mensajeRecibido: mensajeRecibido,
 				})
 			)

@@ -19,7 +19,7 @@ const Conversaciones = ({ posicion }) => {
 						key={i}
 						position={i === 0 ? i * 260 + 10 : i * 260 + 10}
 						idSocketEmisor={con.idSocketEmisor}
-						nombreEmisor={con.nombreEmisor}
+						usuario={con.usuario}
 						mensajeRecibido={con.mensajeRecibido}
 					/>
 				)

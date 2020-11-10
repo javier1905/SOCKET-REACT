@@ -9,7 +9,7 @@ const Contacto = ({ contacto, abrirConvesacion }) => {
 	const openChat = e => {
 		abrirConvesacion({
 			idSocketEmisor: ContactO.idConexion,
-			nombreEmisor: ContactO.usuario,
+			usuario: ContactO.usuario,
 			mensajeRecibido: '',
 		})
 	}
@@ -23,7 +23,7 @@ const Contacto = ({ contacto, abrirConvesacion }) => {
 						alt='messi'
 					></img>
 				</div>
-				<p>{ContactO.usuario.emialUsuario}</p>
+				<p>{ContactO.usuario && ContactO.usuario.emailUsuario}</p>
 			</button>
 		</div>
 	)

@@ -23,9 +23,6 @@ const App = () => {
 
 	const callback = result => {
 		if (result.logOK === true) {
-			console.log('====================================')
-			console.log(result.usuario)
-			console.log('====================================')
 			dispatch(setSocket(io(process.env.REACT_APP_URL_API)))
 			dispatch(setUsuario(result.usuario))
 			setlogOK(true)
@@ -45,7 +42,7 @@ const App = () => {
 					<li>{usuario.apellidoUsuario}</li>
 				</ul>
 			</div>
-			{socket !== '' && <Chat desconectarChat={desconectarChat} />}
+			{socket !== '' && usuario.emailUsuario !== '' && <Chat desconectarChat={desconectarChat} />}
 			{logOK === false && <Redirect to='/singin' />}
 		</div>
 	)

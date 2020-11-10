@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import './conversacion.css'
 
-const Conversacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido, position }) => {
+const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) => {
 	const [mensaje, setmensaje] = useState('')
 	const [vecChat, setvecChat] = useState([])
 	const [escribiendoo, setescribiendoo] = useState(false)
@@ -21,7 +21,7 @@ const Conversacion = ({ idSocketEmisor, nombreEmisor, mensajeRecibido, position 
 		socket.on('updateConect', vecConec => {
 			var bandera = false
 			vecConec.forEach(element => {
-				if (element.idConexion === idSocketEmisor && element.nombreUsuario === nombreEmisor) {
+				if (element.usuario.emailUsuario === usuario.emailUsuario) {
 					bandera = true
 					return
 				}
