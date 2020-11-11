@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+
+import { comparaUsuario } from '../../methods/methods'
+
 import './conversacion.css'
 
 const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) => {
@@ -14,14 +17,14 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 	const divDesconeccion = useRef()
 	const svg = useRef()
 
-	const socket = useSelector(state => state.SocketConnection)
-	const nameUser = useSelector(state => state.NombreUsuario)
+	const socket = useSelector(state => state.socket)
+	const usuari = useSelector(state => state.usuario)
 
 	useEffect(() => {
 		socket.on('updateConect', vecConec => {
 			var bandera = false
 			vecConec.forEach(element => {
-				if (element.usuario.emailUsuario === usuario.emailUsuario) {
+				if (comparaUsuario(element.usuario, usuario)) {
 					bandera = true
 					return
 				}
@@ -30,29 +33,26 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 				? (divDesconeccion.current.style.display = 'block')
 				: (divDesconeccion.current.style.display = 'none')
 		})
-		socket.on('escribiendo:node-react', datos => {
-			if (datos.idSocketEmisor === idSocketEmisor && datos.nombreEmisor === nombreEmisor) {
-				setescribiendoo(datos.es)
-			}
-		})
+		socket.on(
+			'escribiendo:node-react',
+			datos => datos.usuario.emailUsuario === usuario.emailUsuario && setescribiendoo(datos.es)
+		)
 	}, [])
 
 	useEffect(() => {
 		if (mensajeRecibido === '') {
-		} else {
-			setvecChat(vec => [...vec, { nombre: nombreEmisor, msj: mensajeRecibido }])
-		}
+		} else setvecChat(vec => [...vec, { nombre: usuario.emailUsuario, msj: mensajeRecibido }])
 	}, [mensajeRecibido])
 
 	const enviarMsj = () => {
 		if (mensaje !== '') {
 			socket.emit('enviarMsj:react-node', {
 				idSocketReceptor: idSocketEmisor,
-				nombre: nameUser,
+				usuario: usuari,
 				mensaje: mensaje,
 			})
-			socket.emit('escribiendo:react-node', { idSocketEmisor, nameUser, es: false })
-			setvecChat(vec => [...vec, { nombre: nameUser, msj: mensaje }])
+			socket.emit('escribiendo:react-node', { idSocketEmisor, usuario: usuari, es: false })
+			setvecChat(vec => [...vec, { nombre: usuari.emailUsuario, msj: mensaje }])
 			setmensaje('')
 		}
 	}
@@ -62,7 +62,7 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 	const escribiendo = e => {
 		var es
 		e.target.value === '' ? (es = false) : (es = true)
-		socket.emit('escribiendo:react-node', { idSocketEmisor, nameUser, es: es })
+		socket.emit('escribiendo:react-node', { idSocketEmisor, usuario: usuari, es: es })
 		setmensaje(e.target.value)
 	}
 
@@ -92,7 +92,7 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 					></img>
 					<div className='circulo_verdeW'> </div>
 				</div>
-				<p>{nombreEmisor}</p>
+				<p>{usuario && usuario.emailUsuario}</p>
 				<div className='container_buttons' ref={svg}>
 					<button className='btn_downW' onClick={toogle}>
 						<FontAwesomeIcon icon={faAngleDown} />
@@ -101,7 +101,7 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 			</div>
 			<div ref={container_contac} className='container_cuerpoConversacion'>
 				<div className='container_escribiendo'>
-					<p>{escribiendoo ? `${nombreEmisor} escribiendo....` : '.'}</p>
+					<p>{escribiendoo ? `${usuario && usuario.emailUsuario} escribiendo....` : '.'}</p>
 				</div>
 				<div className='cuerpo_conversacion'>
 					{vecChat.map((chat, i) => {

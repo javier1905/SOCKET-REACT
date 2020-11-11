@@ -8,14 +8,16 @@ import updateConversacion from '../../redux/action/conversacionUpdate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
+import { comparaUsuario } from '../../methods/methods'
 
 import './chat.css'
+import setConversacion from '../../redux/action/findVecConversaciones'
 
 const Chat = ({ desconectarChat }) => {
 	const [vecContactos, setvecContactos] = useState([])
 	const [newConversacion, setnewConversacion] = useState({
 		idSocketEmisor: '',
-		nombreEmisor: '',
+		usuario: { emailUsuario: '', nombreUsuario: '', apellidoUsuario: '' },
 		mensajeRecibido: '',
 	})
 	const [posicion, setposicion] = useState(250)
@@ -29,14 +31,22 @@ const Chat = ({ desconectarChat }) => {
 		socket.emit('sendUserConected', usuario)
 
 		socket.on('updateConect', vecConect => {
-			console.log(vecConect, '===', usuario)
+			var vec = vecConversaciones
+			debugger
+			vec.forEach(conversacion => {
+				vecConect.forEach(contact => {
+					if (comparaUsuario(conversacion.usuario, contact.usuario))
+						conversacion.idSocketEmisor = contact.idConexion
+				})
+			})
+			dispatch(setConversacion)
 			setvecContactos(vecConect)
 		})
 
 		socket.on('resibirMsj:node-react', datos => {
 			setnewConversacion({
 				idSocketEmisor: datos.idSocketEmisor,
-				nombreEmisor: datos.nombreEmisor,
+				usuario: datos.usuario,
 				mensajeRecibido: datos.mensajeRecibido,
 			})
 		})
@@ -50,7 +60,7 @@ const Chat = ({ desconectarChat }) => {
 
 	useEffect(() => {
 		if (
-			vecConversaciones.find(c => c.idSocketEmisor === newConversacion.idSocketEmisor) === undefined
+			vecConversaciones.find(c => comparaUsuario(c.usuario, newConversacion.usuario)) === undefined
 		) {
 			newConversacion.idSocketEmisor !== '' && dispatch(addConversacion(newConversacion))
 		} else {
@@ -60,7 +70,7 @@ const Chat = ({ desconectarChat }) => {
 
 	const abrirConvesacion = ({ idSocketEmisor, usuario, mensajeRecibido }) => {
 		setposicion(260)
-		vecConversaciones.find(c => c.usuario.emailUsuario === usuario.emailUsuario) === undefined &&
+		vecConversaciones.find(c => comparaUsuario(c.usuario, usuario)) === undefined &&
 			dispatch(
 				addConversacion({
 					idSocketEmisor: idSocketEmisor,

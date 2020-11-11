@@ -1,9 +1,9 @@
 export const type = 'CONVERSACION_UPDATE'
 
-const conversacionUpdate = ({ idSocketEmisor, nombreEmisor, mensajeRecibido }) => {
+const conversacionUpdate = ({ idSocketEmisor, usuario, mensajeRecibido }) => {
 	return {
 		type,
-		payload: { idSocketEmisor, nombreEmisor, mensajeRecibido },
+		payload: { idSocketEmisor, usuario, mensajeRecibido },
 	}
 }
 

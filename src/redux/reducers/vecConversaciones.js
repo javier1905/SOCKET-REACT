@@ -12,10 +12,8 @@ const vecConversacion = (state = defautlState, { type, payload }) => {
 		case UPDATE_CONVERSACION: {
 			var vec = state
 			vec.forEach(c => {
-				if (
-					c.idSocketEmisor === payload.idSocketEmisor &&
-					c.nombreEmisor === payload.nombreEmisor
-				) {
+				if (c.usuario.emailUsuario === payload.usuario.emailUsuario) {
+					c.idSocketEmisor = payload.idSocketEmisor
 					c.mensajeRecibido = payload.mensajeRecibido
 					return
 				}
