@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { comparaUsuario } from '../../methods/methods'
 
 import './chat.css'
-import setConversacion from '../../redux/action/findVecConversaciones'
+import updateVecConversaciones from '../../redux/action/updateVecConversaciones'
 
 const Chat = ({ desconectarChat }) => {
 	const [vecContactos, setvecContactos] = useState([])
@@ -31,15 +31,7 @@ const Chat = ({ desconectarChat }) => {
 		socket.emit('sendUserConected', usuario)
 
 		socket.on('updateConect', vecConect => {
-			var vec = vecConversaciones
-			debugger
-			vec.forEach(conversacion => {
-				vecConect.forEach(contact => {
-					if (comparaUsuario(conversacion.usuario, contact.usuario))
-						conversacion.idSocketEmisor = contact.idConexion
-				})
-			})
-			dispatch(setConversacion)
+			dispatch(updateVecConversaciones(vecConversaciones, vecConect))
 			setvecContactos(vecConect)
 		})
 

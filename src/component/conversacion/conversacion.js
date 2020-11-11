@@ -23,15 +23,18 @@ const Conversacion = ({ idSocketEmisor, usuario, mensajeRecibido, position }) =>
 	useEffect(() => {
 		socket.on('updateConect', vecConec => {
 			var bandera = false
+			debugger
 			vecConec.forEach(element => {
 				if (comparaUsuario(element.usuario, usuario)) {
 					bandera = true
 					return
 				}
 			})
-			bandera === false
-				? (divDesconeccion.current.style.display = 'block')
-				: (divDesconeccion.current.style.display = 'none')
+			if (divDesconeccion.current !== null) {
+				bandera === false
+					? (divDesconeccion.current.style.display = 'block')
+					: (divDesconeccion.current.style.display = 'none')
+			}
 		})
 		socket.on(
 			'escribiendo:node-react',
